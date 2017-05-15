@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/backgroundprofil"
+                android:padding="20dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_account_circle_black_48dp"
+                    />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:text=""
+                    android:textColor="#2b2a2a"
+                    android:textStyle="bold"
+                    android:id="@+id/nama"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_shadow"
+                android:padding="10dp"
+                >
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/button_border"
+                    android:textAllCaps="false"
+                    android:text="Pasang Iklan"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="20dp"
+                android:paddingBottom="5dp"
+                >
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/ketemuanlogo" />
+                <TextView
+                    android:layout_marginLeft="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="Iklan Saya"
+                    android:textColor="#5c5b5b"
+                    android:textSize="20dp"
+                    android:layout_weight="3"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="20dp"
+                android:paddingBottom="5dp"
+                >
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/ketemuanlogo" />
+                <TextView
+                    android:layout_marginLeft="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="Daftar Ketemuan"
+                    android:textColor="#5c5b5b"
+                    android:textSize="20dp"
+                    android:layout_weight="3"
+                    />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="20dp"
+                android:paddingBottom="5dp"
+                >
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/ketemuanlogo" />
+                <TextView
+                    android:layout_marginLeft="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="Pengaturan"
+                    android:textColor="#5c5b5b"
+                    android:textSize="20dp"
+                    android:layout_weight="3"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="20dp"
+                android:paddingBottom="5dp"
+                android:id="@+id/logout"
+                >
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/ketemuanlogo" />
+                <TextView
+                    android:layout_marginLeft="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="Logout"
+                    android:textColor="#5c5b5b"
+                    android:textSize="20dp"
+                    android:layout_weight="3"
+
+                    />
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+        </ScrollView>
+
+</LinearLayout>

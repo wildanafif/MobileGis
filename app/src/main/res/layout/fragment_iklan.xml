@@ -1,0 +1,44 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    </com.google.android.gms.maps.MapView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:layout_margin="20dp"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Cari Iklan"
+
+            android:background="@drawable/border_shadow"
+            android:padding="10dp"
+            android:id="@+id/cari_iklan"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
+            />
+        <ListView
+            android:id="@+id/hasil_pencarian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/search" />
+    </LinearLayout>
+
+
+
+    <include layout="@layout/bottom_shet_detail_iklan"/>
+
+</android.support.design.widget.CoordinatorLayout>
