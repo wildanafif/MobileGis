@@ -1,2 +1,1 @@
-# Mo
-bile Gis berbasis Android
+# Mobile Gis Berbasis Android
