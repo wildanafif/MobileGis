@@ -36,7 +36,7 @@
                 android:id="@+id/layout_gambar"
                 >
 
-                <ImageView
+                <com.android.volley.toolbox.NetworkImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/full_gambar"
@@ -60,7 +60,7 @@
                 android:paddingTop="15dp"
                 >
 
-                <ImageView
+                <com.android.volley.toolbox.NetworkImageView
                     android:id="@+id/gambar_iklan"
                     android:layout_width="45dp"
                     android:layout_height="45dp"

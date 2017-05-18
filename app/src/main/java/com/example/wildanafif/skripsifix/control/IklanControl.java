@@ -8,6 +8,7 @@ import com.example.wildanafif.skripsifix.entitas.firebasae.IklanFirebase;
 import com.example.wildanafif.skripsifix.entitas.maps.GeoLocation;
 import com.example.wildanafif.skripsifix.entitas.maps.Lokasi;
 import com.example.wildanafif.skripsifix.entitas.maps.Maps;
+import com.example.wildanafif.skripsifix.ui.fragment.IklanFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -24,8 +25,10 @@ public class IklanControl {
     private Context context;
     private Lokasi lokasi;
     private Maps maps;
+    private IklanFragment iklanFragment;
 
-    public IklanControl(GoogleMap mMap, Context context) {
+    public IklanControl(IklanFragment iklanFragment,GoogleMap mMap, Context context) {
+        this.iklanFragment=iklanFragment;
         this.mMap = mMap;
         this.context = context;
     }
@@ -36,7 +39,7 @@ public class IklanControl {
         lokasi=new Lokasi(this.context);
         lokasi.cariLokasi();
         if (lokasi.isLocation()){
-            maps=new Maps(this.mMap,this.context,lokasi.getLatitude(),lokasi.getLongitude());
+            maps=new Maps(this.iklanFragment,this.mMap,this.context,lokasi.getLatitude(),lokasi.getLongitude());
             maps.setLokasi(2);
         }
 

@@ -23,6 +23,11 @@ public class GeoLocation {
     Geocoder geocoder ;
 
     private String provinsi;
+    private String addrs;
+    private String city;
+    private String country;
+    private String postalCode;
+    private String knownName;
 
     public GeoLocation(double latitude, double longitude, Context context) {
         this.latitude = latitude;
@@ -31,9 +36,6 @@ public class GeoLocation {
     }
 
     public void convert(){
-
-
-
         Locale locale = new Locale("id");
         Locale.setDefault(locale);
 
@@ -53,16 +55,20 @@ public class GeoLocation {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String addrs = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-        String city = addresses.get(0).getLocality();
-        String state = addresses.get(0).getAdminArea();
-        String country = addresses.get(0).getCountryName();
-        String postalCode = addresses.get(0).getPostalCode();
-        String knownName = addresses.get(0).getFeatureName();
-        provinsi=state;
+        addrs = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+        city = addresses.get(0).getLocality();
+        country = addresses.get(0).getCountryName();
+        postalCode = addresses.get(0).getPostalCode();
+        knownName = addresses.get(0).getFeatureName();
+        provinsi=addresses.get(0).getAdminArea();
     }
 
     public String getProvinsi() {
         return provinsi;
     }
+    public String GetLocation(){
+        String location = addrs+" "+city+" "+provinsi+" "+country+" "+postalCode+" "+knownName;
+        return location;
+    }
+
 }

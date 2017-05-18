@@ -2,8 +2,10 @@ package com.example.wildanafif.skripsifix.entitas.maps;
 
 import android.content.Context;
 import android.location.Location;
+import android.widget.Toast;
 
 import com.example.wildanafif.skripsifix.entitas.Iklan;
+import com.example.wildanafif.skripsifix.ui.fragment.IklanFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -14,20 +16,24 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by wildan afif on 5/14/2017.
  */
 
-public class Maps {
+public class Maps implements GoogleMap.OnMarkerClickListener, GoogleMap.OnCameraMoveListener {
     private GoogleMap mMap;
     private Context context;
     private double latitude;
     private double longitude;
     private double radius;
+    private HashMap<Marker, Iklan> mHashMap = new HashMap<>();
+    private IklanFragment iklanFragment;
 
 
-    public Maps(GoogleMap mMap, Context context, double latitude, double longitude) {
+    public Maps(IklanFragment iklanFragment, GoogleMap mMap, Context context, double latitude, double longitude) {
+        this.iklanFragment=iklanFragment;
         this.mMap = mMap;
         this.context = context;
         this.latitude = latitude;
@@ -44,6 +50,7 @@ public class Maps {
                     // Sets the tilt of the camera to 30 degrees
             .build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        mMap.setOnCameraMoveListener(this);
     }
 
     public Circle getCircle(double radius){
@@ -65,31 +72,44 @@ public class Maps {
     }
 
     public void showMarker(ArrayList<Iklan> daftar_iklan){
-        for (Iklan object: daftar_iklan) {
-            if (object.getLatitude()!=0){
+        for (Iklan iklan: daftar_iklan) {
+            if (iklan.getLatitude()!=0){
 
                 Location startPoint=new Location("locationA");
                 startPoint.setLatitude(this.latitude);
                 startPoint.setLongitude(this.longitude);
 
                 Location endPoint=new Location("locationA");
-                endPoint.setLatitude(object.getLatitude());
-                endPoint.setLongitude(object.getLongitude());
+                endPoint.setLatitude(iklan.getLatitude());
+                endPoint.setLongitude(iklan.getLongitude());
 
                 double jangkauan=startPoint.distanceTo(endPoint);
                 jangkauan=jangkauan/1000;
                 if (jangkauan<=this.radius){
-                    LatLng sydney = new LatLng(object.getLatitude(), object.getLongitude());
+                    LatLng sydney = new LatLng(iklan.getLatitude(), iklan.getLongitude());
                     Marker marker =mMap.addMarker(
-                            new MarkerOptions()
-                                    .position(sydney)
-
+                            new MarkerOptions().position(sydney)
                     );
+                    mHashMap.put(marker,iklan);
                 }
 
             }
 
         }
+        this.mMap.setOnMarkerClickListener(this);
 
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        Iklan iklan=this.mHashMap.get(marker);
+        this.iklanFragment.hideBottomNavigasi();
+        this.iklanFragment.showDetailIklan(iklan);
+        return true;
+    }
+
+    @Override
+    public void onCameraMove() {
+        this.iklanFragment.showBottomNavigasi();
     }
 }
