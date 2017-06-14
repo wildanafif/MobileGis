@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.wildanafif.skripsifix.ui.activity.AjakKetemuanActivity"
+    android:orientation="vertical"
+
+    android:background="#f7f2f2"
+
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp"
+            >
+
+            <ImageView
+                android:layout_width="139dp"
+                android:layout_height="141dp"
+                android:src="@drawable/ketemuanlogo"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="30dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp"
+                >
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:text="Tanggal dan waktu"
+                    android:textSize="16dp"
+
+                    />
+                <EditText
+                    android:id="@+id/et_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/TextLabel"
+                    android:focusable="false"
+                    android:hint="Atur Tanggal Ketemuan"
+                    android:textColorHint="#2e2e2e"
+                    android:drawableRight="@drawable/ic_date_range_black_24dp"
+
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp"
+                >
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:text="Cari Lokasi Ketemuan"
+                    android:textSize="16dp"
+                    android:visibility="gone"
+
+                    />
+                <EditText
+                    android:id="@+id/et_lokasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:theme="@style/TextLabel"
+                    android:focusable="false"
+                    android:inputType="textMultiLine"
+                    android:hint="Pilih Lokasi Ketemuan"
+                    android:visibility="gone"
+                    android:textColorHint="#2e2e2e"
+                    android:textColor="#2e2e2e"
+                    android:drawableRight="@drawable/ic_my_location_black_24dp"
+
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:padding="5dp"
+                    android:id="@+id/layout_tempat_ketemuan"
+
+                    >
+                    <com.android.volley.toolbox.NetworkImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/place_map"
+                        android:src="@drawable/ic_my_location_black_24dp"
+
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp"
+                android:descendantFocusability="beforeDescendants"
+                android:focusableInTouchMode="true"
+                >
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:text="Katakan Sesuatu Pada Penjual"
+                    android:textSize="16dp"
+
+                    />
+                <EditText
+                    android:id="@+id/et_katakan_sesuatu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="Katakan Sesuatu"
+                    android:textColor="#2e2e2e"
+                    android:theme="@style/TextLabel"
+                    android:inputType="textMultiLine"
+                    android:drawableRight="@drawable/ic_message_black_24dp"
+
+                    android:textColorHint="#2e2e2e"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/btn_ajak_ketemuan"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Kirim Permintaan"
+                    android:textColor="@color/white"
+                    android:background="@drawable/button_style"
+                    android:drawableLeft="@drawable/ic_create_white_24dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

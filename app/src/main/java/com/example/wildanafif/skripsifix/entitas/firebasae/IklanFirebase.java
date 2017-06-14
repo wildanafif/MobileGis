@@ -37,8 +37,9 @@ public class IklanFirebase {
         geoLocation.convert();
         String provinsi=geoLocation.getProvinsi();
         final ArrayList<Iklan> daftar_iklan = new ArrayList<>();
-        Query query =  mDatabaseReference.orderByChild("provinsi").equalTo(provinsi);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        //Query query =  mDatabaseReference.orderByChild("provinsi").equalTo(provinsi);
+
+        mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -62,4 +63,12 @@ public class IklanFirebase {
             }});
         return daftar_iklan;
     }
+
+
+
+    public void pasangiklan(Iklan iklan){
+        this.mDatabaseReference.child(iklan.getId_iklan()).setValue(iklan);
+    }
+
+
 }

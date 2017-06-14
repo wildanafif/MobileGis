@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="88dp"
+        android:layout_height="89dp"
+        android:src="@android:drawable/sym_def_app_icon"
+        android:id="@+id/image_iklan"
+        />
+    <LinearLayout
+        android:layout_weight="4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Judul iklan disini lho cak, kon iku kudu semangat"
+            android:textSize="20dp"
+            android:id="@+id/text_judul_iklan"
+            />
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_harga_iklan"
+            android:text="400000"
+            />
+    </LinearLayout>
+
+</LinearLayout>

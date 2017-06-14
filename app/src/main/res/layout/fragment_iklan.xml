@@ -1,4 +1,5 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -17,8 +18,9 @@
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
-
+        android:visibility="invisible"
         >
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,6 +31,7 @@
             android:id="@+id/cari_iklan"
             android:singleLine="true"
             android:imeOptions="actionDone"
+
             />
         <ListView
             android:id="@+id/hasil_pencarian"
@@ -36,9 +39,30 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/search" />
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="76dp"
+        android:paddingLeft="13dp"
+        >
 
+
+        <ImageButton
+            android:id="@+id/filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filter"
+            android:background="@drawable/border_all"
+            android:padding="7dp"
+            android:src="@drawable/ic_filter_list_black_24dp"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
 
 
     <include layout="@layout/bottom_shet_detail_iklan"/>
+    <include layout="@layout/filter_iklan"/>
+
+
 
 </android.support.design.widget.CoordinatorLayout>

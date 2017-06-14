@@ -1,10 +1,12 @@
 package com.example.wildanafif.skripsifix.entitas;
 
+import java.io.Serializable;
+
 /**
  * Created by wildan afif on 5/14/2017.
  */
 
-public class Iklan {
+public class Iklan implements Serializable {
     private String id_iklan;
     private double latitude;
     private double longitude;

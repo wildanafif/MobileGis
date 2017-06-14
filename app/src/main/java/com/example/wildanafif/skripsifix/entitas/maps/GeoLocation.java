@@ -28,6 +28,7 @@ public class GeoLocation {
     private String country;
     private String postalCode;
     private String knownName;
+    private String kota;
 
     public GeoLocation(double latitude, double longitude, Context context) {
         this.latitude = latitude;
@@ -61,11 +62,31 @@ public class GeoLocation {
         postalCode = addresses.get(0).getPostalCode();
         knownName = addresses.get(0).getFeatureName();
         provinsi=addresses.get(0).getAdminArea();
+        kota=addresses.get(0).getAddressLine(3);
+
+
+    }
+
+    public String getKota() {
+        return kota;
+    }
+
+    public String getAddrs() {
+        return addrs;
     }
 
     public String getProvinsi() {
         return provinsi;
     }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
     public String GetLocation(){
         String location = addrs+" "+city+" "+provinsi+" "+country+" "+postalCode+" "+knownName;
         return location;

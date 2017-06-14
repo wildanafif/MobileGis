@@ -58,4 +58,21 @@ public class Profil {
         return member;
 
     }
+
+    public void setTitle(){
+        FirebaseUser firebaseUser= new AuthFirebase(this.fragment.getContext()).getUserLogin();
+        DatabaseReference database_members= FirebaseDatabase.getInstance().getReference("members");
+        database_members.child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Member member = dataSnapshot.getValue(Member.class);
+                fragment.setTitlebar(member.getNama());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

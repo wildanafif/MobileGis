@@ -40,7 +40,7 @@ public class Auth {
             messageDialog.show();
 
         }else{
-            Member member=new Member(nama,email,password,"","","","","","");
+            Member member=new Member(nama,email,password,"","","","","","","");
 
             AuthFirebase authFirebase=new AuthFirebase(this.context,this);
             authFirebase.register(member);

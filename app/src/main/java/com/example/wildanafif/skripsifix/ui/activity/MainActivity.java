@@ -14,7 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.example.wildanafif.skripsifix.MapsActivity;
 import com.example.wildanafif.skripsifix.R;
+import com.example.wildanafif.skripsifix.entitas.firebasae.AuthFirebase;
+import com.example.wildanafif.skripsifix.entitas.ui.MessageDialog;
 import com.example.wildanafif.skripsifix.ui.fragment.IklanFragment;
 import com.example.wildanafif.skripsifix.ui.fragment.ProfilFragment;
 import com.example.wildanafif.skripsifix.utils.ui.BottomNavigationViewHelper;
@@ -61,15 +64,27 @@ public class MainActivity extends AppCompatActivity
                 case R.id.navigation_home:
                     fragment = new IklanFragment();
                     break;
-                case R.id.navigation_list_iklan:
-
-                    return true;
+//                case R.id.navigation_list_iklan:
+//
+//                    return true;
                 case R.id.navigation_add_iklan:
 
-                    return true;
-                case R.id.navigation_notifications:
+                    AuthFirebase authFirebase=new AuthFirebase();
+                    boolean login=authFirebase.isLogin();
+                    if (login){
+                        finish();
+                        Intent intent= new Intent(MainActivity.this, PasangIklanActivity.class);
+                        startActivity(intent);
+                    }else{
+                        MessageDialog messageDialog=new MessageDialog(MainActivity.this);
+                        messageDialog.setMessage("Fitur ini membutuhkan akses login, silahkan login terlebih dahulu");
+                        messageDialog.show();
+                    }
 
                     return true;
+//                case R.id.navigation_notifications:
+//
+//                    return true;
                 case R.id.navigation_profile:
                     fragment = new ProfilFragment();
                     break;
@@ -95,18 +110,18 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_register) {
            startActivity(new Intent(this,RegisterActivity.class));
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_login) {
             startActivity(new Intent(this,LoginActivity.class));
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_logout) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_profil) {
 
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            startActivity(new Intent(MainActivity.this, MapsActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

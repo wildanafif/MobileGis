@@ -40,4 +40,12 @@
     <string name="btn_sign_out">Sign Out</string>
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
+
+    <string-array name="kategori_iklan">
+        <item>Semua Iklan</item>
+        <item>Motor</item>
+        <item>Mobil</item>
+        <item>Jasa</item>
+
+    </string-array>
 </resources>

@@ -13,8 +13,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import static com.example.wildanafif.skripsifix.R.drawable.loading;
 
 /**
  * Created by wildan afif on 5/12/2017.
@@ -68,8 +73,7 @@ public class AuthFirebase {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             firebaseAuth=FirebaseAuth.getInstance();
-                            String id =database_members.push().getKey();
-                            database_members.child(id).setValue(member);
+                            saveUser();
                         }
                         loading.hide();
 
@@ -78,6 +82,12 @@ public class AuthFirebase {
                 });
 
 
+    }
+
+    private void saveUser(){
+        FirebaseUser us=getUserLogin();
+        String id =us.getUid();
+        database_members.child(id).setValue(member);
     }
 
     public FirebaseUser getUserLogin(){
@@ -97,6 +107,23 @@ public class AuthFirebase {
         }else{
             return true;
         }
+    }
+
+    public Member getMember(){
+        FirebaseUser firebaseUser = getUserLogin();
+        database_members.child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                member=dataSnapshot.getValue(Member.class);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        return member;
     }
 
 

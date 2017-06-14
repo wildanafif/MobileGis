@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.wildanafif.skripsifix.ui.activity.PasangIklanActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border_bottom"
+                android:padding="15dp"
+                android:orientation="vertical"
+
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/TextLabel"
+
+                    >
+
+                    <EditText
+                        android:id="@+id/judul_iklan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Judul Iklan"
+                        android:inputType="textMultiLine"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="#3e3e3e"
+
+                        android:theme="@style/TextLabel"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/TextLabel"
+                    android:layout_marginTop="10dp"
+
+                    >
+
+                    <EditText
+                        android:id="@+id/kategori_iklan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Kategori Iklan"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="#3e3e3e"
+                        android:focusable="false"
+                        android:theme="@style/TextLabel"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/TextLabel"
+                    android:layout_marginTop="10dp"
+
+                    >
+
+                    <EditText
+                        android:id="@+id/lokasi_iklan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Lokasi Iklan"
+                        android:inputType="textMultiLine"
+
+                        android:singleLine="true"
+                        android:textColor="#3e3e3e"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_my_location_black_24dp"
+                        android:theme="@style/TextLabel"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/TextLabel"
+                    android:layout_marginTop="10dp"
+
+                    >
+
+                    <EditText
+                        android:id="@+id/kondisi_iklan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Kondisi"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="#3e3e3e"
+                        android:focusable="false"
+                        android:theme="@style/TextLabel"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/TextLabel"
+                    android:layout_marginTop="10dp"
+
+                    >
+
+                    <EditText
+                        android:id="@+id/harga_iklan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Harga barang Anda"
+                        android:inputType="number"
+
+                        android:singleLine="true"
+                        android:textColor="#3e3e3e"
+                        android:theme="@style/TextLabel"/>
+
+                </android.support.design.widget.TextInputLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioGroup
+                        android:id="@+id/nego_tidak"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+
+                        <RadioButton
+                            android:id="@+id/nego"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nego"
+                            android:checked="true"
+                            android:textSize="10dp"
+                            />
+
+                        <RadioButton
+                            android:id="@+id/tidak_nego"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tidak Nego"
+                            android:textSize="10dp"
+                            />
+
+                    </RadioGroup>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:padding="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="11dp"
+                        android:text="Upload Foto"
+                        />
+                    <ImageView
+                        android:layout_width="92dp"
+                        android:layout_height="92dp"
+                        android:src="@drawable/upload_foto"
+                        android:id="@+id/img_upload"
+
+
+                        />
+                </LinearLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/TextLabel"
+                    android:layout_marginTop="10dp"
+
+                    >
+
+                    <EditText
+                        android:id="@+id/deskripsi_iklan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Deskripsi barang Anda"
+                        android:inputType="textMultiLine"
+
+                        android:singleLine="true"
+                        android:textColor="#3e3e3e"
+                        android:theme="@style/TextLabel"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp"
+                >
+                <Button
+                    android:id="@+id/btn_pasang_iklan"
+                    android:padding="10dp"
+                    android:drawableLeft="@drawable/ic_save_white_24dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pasang Iklan"
+                    android:textAllCaps="false"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

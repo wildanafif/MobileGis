@@ -1,6 +1,7 @@
 package com.example.wildanafif.skripsifix.ui.fragment;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,26 +9,38 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.example.wildanafif.skripsifix.R;
 import com.example.wildanafif.skripsifix.control.IklanControl;
 import com.example.wildanafif.skripsifix.entitas.Iklan;
+import com.example.wildanafif.skripsifix.entitas.firebasae.AuthFirebase;
 import com.example.wildanafif.skripsifix.entitas.maps.GeoLocation;
+import com.example.wildanafif.skripsifix.entitas.ui.MessageDialog;
 import com.example.wildanafif.skripsifix.entitas.volley.Image;
+import com.example.wildanafif.skripsifix.ui.activity.AjakKetemuanActivity;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.firebase.auth.FirebaseUser;
+import com.jaredrummler.materialspinner.MaterialSpinner;
+
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 import static com.example.wildanafif.skripsifix.R.id.map;
 
@@ -35,7 +48,7 @@ import static com.example.wildanafif.skripsifix.R.id.map;
  * Created by wildan afif on 5/11/2017.
  */
 
-public class IklanFragment extends Fragment implements OnMapReadyCallback {
+public class IklanFragment extends Fragment implements OnMapReadyCallback, View.OnClickListener {
     private View view;
     private MapView mMapView;
     private GoogleMap mMap;
@@ -59,6 +72,13 @@ public class IklanFragment extends Fragment implements OnMapReadyCallback {
     private TextView alamat;
     private TextView deskripsi;
     private NetworkImageView img_title;
+    private LinearLayout btn_ketemuan;
+    private Iklan iklan;
+    private ImageButton btn_filter;
+    private View bsm_filter;
+    private BottomSheetBehavior<View> filter;
+    DiscreteSeekBar discreteSeekBar1;
+    private IklanControl iklanControl;
 
     @Nullable
     @Override
@@ -67,9 +87,44 @@ public class IklanFragment extends Fragment implements OnMapReadyCallback {
         mMapView = (MapView) view.findViewById(map);
         mMapView.onCreate(savedInstanceState);
         this.bsm=view.findViewById(R.id.sheetiklan);
+        this.bsm_filter=view.findViewById(R.id.layout_filter);
         this.mBottomSheetBehavior= BottomSheetBehavior.from(this.bsm);
+        this.filter= BottomSheetBehavior.from(this.bsm_filter);
+        this.filter.setState(BottomSheetBehavior.STATE_HIDDEN);
+        getActivity().setTitle("Iklan");
         this.mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        this.btn_filter=(ImageButton)this.view.findViewById(R.id.filter);
+        this.btn_filter.setOnClickListener(this);
         this.navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
+        discreteSeekBar1 = (DiscreteSeekBar) this.view.findViewById(R.id.discrete1);
+        discreteSeekBar1.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
+            @Override
+            public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
+                iklanControl.filterDaftarIklan(value);
+            }
+
+            @Override
+            public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
+
+            }
+
+        });
+
+        MaterialSpinner spinner = (MaterialSpinner) view.findViewById(R.id.spinner);
+        spinner.setItems("Motor", "Mobil");
+        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+
         mMapView.onResume(); // needed to get the map to display immediately
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -87,8 +142,17 @@ public class IklanFragment extends Fragment implements OnMapReadyCallback {
             return;
         }
         mMap.setMyLocationEnabled(true);
-        IklanControl iklanControl=new IklanControl(this,mMap,getContext());
-        iklanControl.LihatDaftarIklan();
+        iklanControl=new IklanControl(this,mMap,getContext());
+        iklanControl.LihatDaftarIklan(1);
+
+        View locationButton = ((View) mMapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
+        RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
+        // position on right bottom
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+        rlp.setMargins(0, 0, 30, 150);
+
+
 
 
     }
@@ -99,9 +163,16 @@ public class IklanFragment extends Fragment implements OnMapReadyCallback {
         this.navigation.setVisibility(View.INVISIBLE);
     }
     public void showBottomNavigasi(){
-        this.navigation.setVisibility(View.VISIBLE);
+
+        if (this.filter.getState()==BottomSheetBehavior.STATE_COLLAPSED){
+            this.hideBottomNavigasi();
+        }else {
+            this.navigation.setVisibility(View.VISIBLE);
+        }
+
     }
     public void showDetailIklan(Iklan iklan){
+        this.iklan=iklan;
         mActionBarToolbar = (Toolbar) view.findViewById(R.id.toolbarIklan);
         this.mActionBarToolbar.setVisibility(View.GONE);
         this.initDetailIklanUi();
@@ -149,6 +220,9 @@ public class IklanFragment extends Fragment implements OnMapReadyCallback {
         alamat= (TextView) this.view.findViewById(R.id.alamat);
         deskripsi= (TextView) this.view.findViewById(R.id.deskripsi);
         img_title = (NetworkImageView) this.view.findViewById(R.id.gambar_iklan);
+
+        btn_ketemuan=(LinearLayout)this.view.findViewById(R.id.layout_ketemuan);
+        btn_ketemuan.setOnClickListener(this);
     }
 
     public void initBottomShet (final Iklan iklan){
@@ -160,9 +234,10 @@ public class IklanFragment extends Fragment implements OnMapReadyCallback {
             int init=0;
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
-
+                filter.setState(BottomSheetBehavior.STATE_HIDDEN);
 
                 if (mBottomSheetBehavior.getState()==BottomSheetBehavior.STATE_EXPANDED){
+
                     header.setBackgroundColor(Color.parseColor("#21aee8"));
                     judul.setTextColor(Color.parseColor("#ffffff"));
                     full_gambar.setVisibility(View.VISIBLE);
@@ -209,4 +284,40 @@ public class IklanFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.layout_ketemuan:
+                AuthFirebase authFirebase=new AuthFirebase();
+                boolean login=authFirebase.isLogin();
+                if (login){
+                    FirebaseUser firebaseUser=authFirebase.getUserLogin();
+                    if (iklan.getMail().equals(firebaseUser.getEmail())){
+                        MessageDialog messageDialog=new MessageDialog(getContext());
+                        messageDialog.setMessage("Mohon maaf, iklan ini adalah iklan anda");
+                        messageDialog.show();
+                    }else{
+                        getActivity().finish();
+                        Intent i=new Intent(getContext(), AjakKetemuanActivity.class);
+                        i.putExtra("iklan", iklan);
+                        startActivity(i);
+                    }
+
+                }else{
+                    MessageDialog messageDialog=new MessageDialog(getContext());
+                    messageDialog.setMessage("Fitur ini membutuhkan akses login, silahkan login terlebih dahulu");
+                    messageDialog.show();
+                }
+
+                break;
+            case R.id.filter:
+                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+                this.filter.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                this.hideBottomNavigasi();
+                break;
+        }
+    }
+    public void hideDetailIklan(){
+        this.mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+    }
 }

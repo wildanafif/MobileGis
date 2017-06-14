@@ -22,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
         this.email=(EditText)findViewById(R.id.email);
         this.password=(EditText)findViewById(R.id.password);
         this.btnLogin=(Button)findViewById(R.id.btn_login);
+        setTitle("Login");
         this.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
