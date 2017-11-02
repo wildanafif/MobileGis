@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+
+tools:context="com.example.wildanafif.skripsifix.ui.activity.DetailActivityKetemuanDiterima">
+
+>
+
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/scrl"
+    android:paddingBottom="70dp"
+
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="#d22626"
+            android:id="@+id/layout_konfirmasi_lokasi_ketemuan"
+            android:visibility="gone"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Anda belum mengkonfirmasi lokasi transaksi, silahkan pilih dan konfirmasi transaksi"
+
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/border_bottom"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:weightSum="1">
+                <ImageView
+                    android:layout_width="76dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_account_circle_black_48dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Ketemuan"
+                    android:paddingTop="10dp"
+                    android:textSize="17dp"
+                    android:id="@+id/nama_ketemuan"
+
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:paddingTop="10dp"
+                    >
+                    <TextView
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:background="@drawable/iklan_belum_disetujui"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Belum di proses"
+                        android:textColor="@color/white"
+                        android:id="@+id/status_konfirmasi"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                >
+                <ImageView
+                    android:layout_width="76dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_access_time_black_48dp"
+
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Ketemuan"
+                    android:paddingTop="10dp"
+
+                    android:textSize="17dp"
+
+                    android:id="@+id/waktu_ketemuan"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                >
+                <ImageView
+                    android:layout_width="76dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_message_black_48dp"
+
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+
+                    android:textSize="17dp"
+                    android:text="Nama Ketemuan"
+                    android:id="@+id/pesan_ketemuan"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:id="@+id/layout_lokasi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:visibility="gone"
+            android:background="@drawable/border_bottom"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:layout_width="76dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_place_black_48dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="17dp"
+                    android:text="Nama Ketemuan"
+
+                    android:id="@+id/lokasi_ketemuan"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                >
+                <com.android.volley.toolbox.NetworkImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/gambar_lokasi_ketemuan"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="20dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="10dp"
+            >
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:text="Lihat rute lokasi transaksi"
+                android:id="@+id/btn_lihat_lokasi"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+
+            android:id="@+id/layout_btn_konfirmasi_lokasi"
+            >
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:text="Pilih dan konfirmasi lokasi transaksi"
+                android:id="@+id/btn_konfirmasi_lokasi_ketemuan"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>
+<include layout="@layout/bottom_sheet_detail_iklan_ketemuan_diterima"/>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -2,10 +2,10 @@ package com.example.wildanafif.skripsifix.ui.activity;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -32,14 +32,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.wildanafif.skripsifix.R;
 import com.example.wildanafif.skripsifix.control.IklanControl;
 import com.example.wildanafif.skripsifix.entitas.Iklan;
 import com.example.wildanafif.skripsifix.entitas.Member;
-import com.example.wildanafif.skripsifix.entitas.firebasae.AuthFirebase;
+import com.example.wildanafif.skripsifix.entitas.firebase.AuthFirebase;
 import com.example.wildanafif.skripsifix.entitas.maps.GeoLocation;
 import com.example.wildanafif.skripsifix.entitas.ui.Loading;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -53,24 +52,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 
 public class PasangIklanActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private String[] kategori = {"Mobil","Motor","Sewa"};
+    private String[] kategori = {"Mobil","Motor"};
     private String[][] subkategori = new String[][]{
             {"Mobil Bekas","Aksesoris Mobil","Audio Mobil","Velg dan Ban Mobil","Sparepart Mobil"},
-            {"Motor Bekas","Aksesoris Motor","Sparepart Motor","Apparel","Helm"},
-            {"Jasa atau Sewa Mobil","Jasa atau Sewa Motor"}
+            {"Motor Bekas","Aksesoris Motor","Sparepart Motor","Apparel","Helm"}
 
     };
     private String kondisi []={"Baru", "Bekas"};
-    private int pilihan_kategori;
+    private int pilihan_kategori=-1;
     private int pilihan_subkategori;
     private int pilihan_kondisi;
     private double latitude_iklan;
@@ -175,6 +173,9 @@ public class PasangIklanActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void pasangIklan() {
+        Bitmap image=((BitmapDrawable) this.btn_img_upload.getDrawable()).getBitmap();
+        String nama_foto;
+        nama_foto="uploads/--"+member.getId()+new Timestamp(System.currentTimeMillis()).getTime()+".jpg";
         int barang_nego=0;
         int selectedId = this.radio_group_nego.getCheckedRadioButtonId();
 
@@ -183,13 +184,22 @@ public class PasangIklanActivity extends AppCompatActivity implements View.OnCli
         }else {
             barang_nego=0;
         }
+        String temp_kategori;
+        String temp_subKategori;
+        if (pilihan_kategori==-1){
+            temp_kategori="";
+            temp_subKategori="";
+        }else{
+            temp_kategori= this.kategori[pilihan_kategori];
+            temp_subKategori=this.subkategori[pilihan_kategori][pilihan_subkategori];
+        }
         Iklan iklan= new Iklan(
                 String.valueOf(new Date().getTime()),
                 this.latitude_iklan,
                 this.longitude_iklan,
                 this.ET_judul_iklan.getText().toString(),
-                this.kategori[pilihan_kategori],
-                this.subkategori[pilihan_kategori][pilihan_subkategori],
+                temp_kategori,
+                temp_subKategori,
                 this.ET_deskripsi_iklan.getText().toString(),
                 this.ET_harga_iklan.getText().toString(),
                 this.provinsi,
@@ -201,7 +211,7 @@ public class PasangIklanActivity extends AppCompatActivity implements View.OnCli
                 String.valueOf(new Date().getTime()),
                 barang_nego,
                 this.daerah,
-                "null",
+                nama_foto,
                 member.getEmail(),
                 1,
                 this.firebaseUser.getUid(),
@@ -210,10 +220,9 @@ public class PasangIklanActivity extends AppCompatActivity implements View.OnCli
                 1,
                 String.valueOf(new Date().getTime())
         );
-        IklanControl iklanControl= new IklanControl(this,iklan);
+        IklanControl iklanControl= new IklanControl(this,iklan, image);
         iklanControl.pasang();
-        startActivity(new Intent(PasangIklanActivity.this,IklanSayactivity.class));
-        Toast.makeText(this, "Berhasil Memasang Iklan", Toast.LENGTH_SHORT).show();
+
 
     }
 
@@ -311,7 +320,7 @@ public class PasangIklanActivity extends AppCompatActivity implements View.OnCli
             GeoLocation geoLocation= new GeoLocation(latitude_iklan,longitude_iklan,this);
             geoLocation.convert();
             provinsi=geoLocation.getProvinsi();
-            Toast.makeText(this, ""+provinsi, Toast.LENGTH_SHORT).show();
+
             String kota=geoLocation.getCountry();
             String ak=geoLocation.getCity();
             this.getDaerah();
@@ -336,10 +345,6 @@ public class PasangIklanActivity extends AppCompatActivity implements View.OnCli
 
 
 
-
-
-
-    // tolong wildan jangan tulis lagi code dibawah ini
     private void getUser(){
         final Loading loading= new Loading(this);
         loading.show();
@@ -350,7 +355,7 @@ public class PasangIklanActivity extends AppCompatActivity implements View.OnCli
             public void onDataChange(DataSnapshot dataSnapshot) {
                 member=dataSnapshot.getValue(Member.class);
                 loading.hide();
-                test();
+
             }
 
             @Override
@@ -361,9 +366,7 @@ public class PasangIklanActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-    private void test() {
-        Toast.makeText(this, ""+member.getNama(), Toast.LENGTH_SHORT).show();
-    }
+
 
     private void getDaerah(){
         final Loading loading= new Loading(this);
@@ -378,7 +381,6 @@ public class PasangIklanActivity extends AppCompatActivity implements View.OnCli
                 try {
                     daerah=response.getString("nama_daerah");
                     loading.hide();
-                    Toast.makeText(PasangIklanActivity.this, ""+ response.getString("nama_daerah") , Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -393,6 +395,5 @@ public class PasangIklanActivity extends AppCompatActivity implements View.OnCli
         });
         requestQueue.add(jsonObjectRequest);
     }
-    // tolong wildan jangan tulis lagi code dibawah ini
 
 }

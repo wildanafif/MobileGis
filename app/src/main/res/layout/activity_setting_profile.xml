@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.wildanafif.skripsifix.ui.activity.SettingProfileActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="vertical"
+
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/border_bottom"
+                android:padding="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+
+                    >
+                    <com.android.volley.toolbox.NetworkImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:id="@+id/gambar_profile"
+                        android:src="@drawable/gambar_profil"
+
+                        />
+                    <Button
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:text="Ganti Foto"
+                        android:background="@color/colorPrimary"
+                        android:textColor="@color/white"
+                        android:textAllCaps="false"
+                        android:id="@+id/btn_ganti_foto"
+                        />
+                </LinearLayout>
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    >
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:theme="@style/TextLabel"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/nama"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:hint="Nama"
+                            android:inputType="textMultiLine"
+
+                            android:theme="@style/TextLabel"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/TextLabel"
+                        android:layout_marginTop="10dp"
+
+                        >
+
+                        <EditText
+                            android:id="@+id/telp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Telp"
+                            android:inputType="number"
+
+                            android:singleLine="true"
+                            android:textColor="#3e3e3e"
+                            android:theme="@style/TextLabel"/>
+
+                    </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/TextLabel"
+                        android:layout_marginTop="10dp"
+
+                        >
+
+                        <EditText
+                            android:id="@+id/provinsi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Provinsi"
+                            android:inputType="text"
+                            android:focusable="false"
+                            android:singleLine="true"
+                            android:textColor="#3e3e3e"
+                            android:theme="@style/TextLabel"/>
+
+                    </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/TextLabel"
+                        android:layout_marginTop="10dp"
+
+                        >
+
+                        <EditText
+                            android:id="@+id/daerah"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Kab/Kota"
+                            android:inputType="text"
+                            android:focusable="false"
+                            android:singleLine="true"
+                            android:textColor="#3e3e3e"
+                            android:theme="@style/TextLabel"/>
+
+                    </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/TextLabel"
+                        android:layout_marginTop="10dp"
+
+                        >
+
+                        <EditText
+                            android:id="@+id/pin_bb"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Pin BB"
+                            android:inputType="text"
+
+                            android:singleLine="true"
+                            android:textColor="#3e3e3e"
+                            android:theme="@style/TextLabel"/>
+
+                    </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/TextLabel"
+                        android:layout_marginTop="10dp"
+
+                        >
+
+                        <EditText
+                            android:id="@+id/facebook"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Facebook"
+                            android:inputType="text"
+
+                            android:singleLine="true"
+                            android:textColor="#3e3e3e"
+                            android:theme="@style/TextLabel"/>
+
+                    </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/TextLabel"
+                        android:layout_marginTop="10dp"
+
+                        >
+
+                        <EditText
+                            android:id="@+id/instagram"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Instagram"
+                            android:inputType="text"
+
+                            android:singleLine="true"
+                            android:textColor="#3e3e3e"
+                            android:theme="@style/TextLabel"/>
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+                <Button
+                    android:id="@+id/simpan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/button_border"
+                    android:textAllCaps="false"
+                    android:text="Simpan Perubahan"
+                    />
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

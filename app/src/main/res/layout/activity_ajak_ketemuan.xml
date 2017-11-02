@@ -149,7 +149,7 @@
                     android:paddingLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Kirim Permintaan"
+                    android:text="Lanjutkan"
                     android:textColor="@color/white"
                     android:background="@drawable/button_style"
                     android:drawableLeft="@drawable/ic_create_white_24dp"

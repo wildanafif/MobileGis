@@ -1,13 +1,11 @@
-package com.example.wildanafif.skripsifix.entitas.firebasae;
+package com.example.wildanafif.skripsifix.entitas.firebase;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.example.wildanafif.skripsifix.control.Auth;
 import com.example.wildanafif.skripsifix.entitas.Member;
 import com.example.wildanafif.skripsifix.entitas.ui.Loading;
-import com.example.wildanafif.skripsifix.ui.activity.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -18,8 +16,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
-import static com.example.wildanafif.skripsifix.R.drawable.loading;
+import java.io.IOException;
+import java.sql.Timestamp;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+
+import static com.example.wildanafif.skripsifix.entitas.request.Url_request._UPDATE_TOKEN;
 
 /**
  * Created by wildan afif on 5/12/2017.
@@ -52,6 +59,7 @@ public class AuthFirebase {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+
                             loading.hide();
                             auth.redirect();
                         }else{
@@ -87,7 +95,26 @@ public class AuthFirebase {
     private void saveUser(){
         FirebaseUser us=getUserLogin();
         String id =us.getUid();
-        database_members.child(id).setValue(member);
+        String g= FirebaseInstanceId.getInstance().getToken();
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("token",g)
+                .add("email",us.getEmail())
+                .build();
+
+        Request request = new Request.Builder()
+                .url(_UPDATE_TOKEN)
+                .post(body)
+                .build();
+
+        try {
+            client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Member simpanMember=new Member(id,member.getNama(),member.getEmail(),member.getPassword(),member.getTelp(),member.getProvinsi(),member.getDaerah(),member.getInstagram(),member.getPin_bb(),member.getFoto(),member.getFacebook(),new Timestamp(System.currentTimeMillis()).getTime());
+
+        database_members.child(id).setValue(simpanMember);
     }
 
     public FirebaseUser getUserLogin(){

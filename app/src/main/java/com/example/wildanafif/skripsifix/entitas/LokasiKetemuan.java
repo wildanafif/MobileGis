@@ -13,17 +13,22 @@ public class LokasiKetemuan implements Serializable {
     private String id_lokasi_ketemuan;
     private String id_ketemuan;
 
+
     public LokasiKetemuan(double latitude, double longitude, String alamat) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.alamat = alamat;
     }
 
-    public LokasiKetemuan(double latitude, double longitude, String alamat, String id_ketemuan) {
+    public LokasiKetemuan(String id_lokasi_ketemuan,double latitude, double longitude, String alamat, String id_ketemuan) {
+        this.id_lokasi_ketemuan=id_lokasi_ketemuan;
         this.latitude = latitude;
         this.longitude = longitude;
         this.alamat = alamat;
         this.id_ketemuan = id_ketemuan;
+    }
+
+    public LokasiKetemuan() {
     }
 
     public double getLatitude() {

@@ -6,10 +6,9 @@ import android.widget.ListView;
 
 import com.example.wildanafif.skripsifix.R;
 import com.example.wildanafif.skripsifix.entitas.Iklan;
-import com.example.wildanafif.skripsifix.entitas.firebasae.AuthFirebase;
+import com.example.wildanafif.skripsifix.entitas.firebase.AuthFirebase;
 import com.example.wildanafif.skripsifix.entitas.ui.Loading;
 import com.example.wildanafif.skripsifix.ui.adapter.ListAdapterIklan;
-import com.example.wildanafif.skripsifix.ui.adapter.ListViewAdapterDaftarKetemuan;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

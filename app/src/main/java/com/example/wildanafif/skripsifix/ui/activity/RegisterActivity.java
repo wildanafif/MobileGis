@@ -2,6 +2,7 @@ package com.example.wildanafif.skripsifix.ui.activity;
 
 
 import android.app.AlertDialog;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,10 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         setTitle("Register");
         Button btn_register=(Button)findViewById(R.id.sign_up_button);
         final EditText et_nama=(EditText)findViewById(R.id.nama);

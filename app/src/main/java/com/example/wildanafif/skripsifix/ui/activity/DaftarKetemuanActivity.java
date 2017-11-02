@@ -4,6 +4,9 @@ package com.example.wildanafif.skripsifix.ui.activity;
  * Created by wildan afif on 5/21/2017.
  */
 
+import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wildanafif.skripsifix.R;
 import com.example.wildanafif.skripsifix.ui.fragment.Fragment_DaftarKetemuanDikirim;
@@ -32,7 +36,7 @@ public class DaftarKetemuanActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-
+    private String back=null;
 
 
     @Override
@@ -40,6 +44,13 @@ public class DaftarKetemuanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daftar_ketemuan);
         setTitle("Daftar Ketemuan");
+
+        Intent intent = getIntent();
+
+// Get the extras (if there are any)
+        if (intent.hasExtra("back")){
+            this.back=intent.getStringExtra("back");
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -58,8 +69,25 @@ public class DaftarKetemuanActivity extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public void onBackPressed() {
+        if (back!=null){
+            if (back.matches("profil")){
+                finishAffinity();
+                Intent intent= new Intent(DaftarKetemuanActivity.this, MainActivity.class);
+                intent.putExtra("fragment","profil");
+                startActivity(intent);
+            }
+            //Toast.makeText(this, ""+back, Toast.LENGTH_SHORT).show();
 
-
+        }else{
+            finishAffinity();
+            Intent intent= new Intent(DaftarKetemuanActivity.this, MainActivity.class);
+            intent.putExtra("fragment","profil");
+            startActivity(intent);
+        }
+    }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 

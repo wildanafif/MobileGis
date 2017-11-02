@@ -12,8 +12,8 @@ import android.widget.ListView;
 
 import com.example.wildanafif.skripsifix.R;
 import com.example.wildanafif.skripsifix.entitas.Ketemuan;
-import com.example.wildanafif.skripsifix.entitas.firebasae.AuthFirebase;
-import com.example.wildanafif.skripsifix.ui.activity.DetailActivityKetemuan;
+import com.example.wildanafif.skripsifix.entitas.firebase.AuthFirebase;
+import com.example.wildanafif.skripsifix.ui.activity.DetailActivityKetemuanDiterima;
 import com.example.wildanafif.skripsifix.ui.adapter.ListViewAdapterDaftarKetemuan;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,8 +46,8 @@ public class Fragment_DaftarKetemuanDiterima  extends Fragment {
         lvListKetemuan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent intent= new Intent(getContext(), DetailActivityKetemuan.class);
+                getActivity().finish();
+                Intent intent= new Intent(getContext(), DetailActivityKetemuanDiterima.class);
                 intent.putExtra("ketemuan", daftarKetemuan.get(position));
                 intent.putExtra("konfirmasi",true);
                 startActivity(intent);
@@ -56,7 +56,7 @@ public class Fragment_DaftarKetemuanDiterima  extends Fragment {
         daftarKetemuan = new ArrayList<>();
         datauser=auth.getUserLogin();
         Query query =  databaseReferenceListUsers.orderByChild("email_receiver").equalTo(datauser.getEmail());
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 daftarKetemuan.clear();
@@ -66,7 +66,7 @@ public class Fragment_DaftarKetemuanDiterima  extends Fragment {
 
 
                 }
-                adapter = new ListViewAdapterDaftarKetemuan(getContext(), daftarKetemuan);
+                adapter = new ListViewAdapterDaftarKetemuan("receiver",getContext(), daftarKetemuan);
                 lvListKetemuan.setAdapter(adapter);
             }
 

@@ -4,28 +4,30 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.toolbox.NetworkImageView;
-import com.example.wildanafif.skripsifix.MapsActivity;
 import com.example.wildanafif.skripsifix.R;
+import com.example.wildanafif.skripsifix.control.KetemuanControl;
 import com.example.wildanafif.skripsifix.entitas.Iklan;
 import com.example.wildanafif.skripsifix.entitas.Ketemuan;
-import com.example.wildanafif.skripsifix.entitas.firebasae.KetemuanFirebase;
+import com.example.wildanafif.skripsifix.entitas.firebase.KetemuanFirebase;
 import com.example.wildanafif.skripsifix.entitas.maps.GeoLocation;
 import com.example.wildanafif.skripsifix.entitas.volley.Image;
 
-public class DetailActivityKetemuan extends AppCompatActivity implements View.OnClickListener, View.OnScrollChangeListener {
+public class DetailActivityKetemuan extends AppCompatActivity implements View.OnClickListener {
 
     private BottomSheetBehavior<View> mBottomSheetBehavior;
     private View bsm;
@@ -55,12 +57,12 @@ public class DetailActivityKetemuan extends AppCompatActivity implements View.On
     private ScrollView scrl;
     private Button btn_lihat_lokasi;
     private LinearLayout layout_konfirmasi;
-    private Button btn_terima;
-    private Button btn_tolak;
+
     private KetemuanFirebase ketemuanFirebase;
     private TextView et_status_konfirmasi;
     private Ketemuan ketemuan;
     private Intent intent;
+    private LinearLayout layout_tempat_ketemuan;
 
 
     @Override
@@ -84,17 +86,50 @@ public class DetailActivityKetemuan extends AppCompatActivity implements View.On
         this.gambar_lokasi_ketemuan=(NetworkImageView)findViewById(R.id.gambar_lokasi_ketemuan);
         this.btn_lihat_lokasi=(Button)findViewById(R.id.btn_lihat_lokasi);
         this.et_status_konfirmasi=(TextView)findViewById(R.id.status_konfirmasi);
-        layout_konfirmasi=(LinearLayout)findViewById(R.id.layout_konfirmasi);
+
         scrl= (ScrollView)findViewById(R.id.scrl);
-        scrl.setOnScrollChangeListener(this);
+
+        this.layout_tempat_ketemuan=(LinearLayout)findViewById(R.id.layout_tempat_ketemuan);
         this.nama_ketemuan.setText(iklan.getNama());
         this.lokasi_ketemuan.setText(ketemuan.getTempat_ketemuan());
         this.waktu_ketemuan.setText(ketemuan.getWaktu());
         this.pesan_ketemuan.setText(ketemuan.getMessage());
         this.showDetailIklan();
-        btn_terima=(Button)findViewById(R.id.terima);
-        btn_tolak=(Button)findViewById(R.id.tolak);
+
         this.init_ui();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+        startActivity(new Intent(DetailActivityKetemuan.this, DaftarKetemuanActivity.class));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail_ketemuan, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.chat_message) {
+            Intent intent= new Intent(this, ChatActivity.class);
+            intent.putExtra("ketemuan", ketemuan);
+
+            startActivity(intent);
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void init_ui(){
@@ -102,36 +137,16 @@ public class DetailActivityKetemuan extends AppCompatActivity implements View.On
         if (status_confirm){
             et_status_konfirmasi.setText("Disetujui");
             et_status_konfirmasi.setBackgroundDrawable( getResources().getDrawable(R.drawable.ketemuan_disetujui) );
+            this.layout_tempat_ketemuan.setVisibility(View.VISIBLE);
+            this.btn_lihat_lokasi.setVisibility(View.VISIBLE);
         }else{
-            et_status_konfirmasi.setText("Belum di setujui");
+            et_status_konfirmasi.setText("Belum direspon penjual");
             et_status_konfirmasi.setBackgroundDrawable( getResources().getDrawable(R.drawable.iklan_belum_disetujui) );
+            this.layout_tempat_ketemuan.setVisibility(View.GONE);
+            this.btn_lihat_lokasi.setVisibility(View.GONE);
         }
-        btn_terima.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                ketemuan.setConfirmReceiver(true);
-                ketemuanFirebase.konfirmasi(ketemuan);
-                redirect();
-            }
-        });
-        btn_tolak.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                ketemuan.setConfirmReceiver(false);
-                ketemuanFirebase.konfirmasi(ketemuan);
-                redirect();
-            }
-        });
-        boolean iskonfirmasi=intent.getExtras().getBoolean("konfirmasi");
-        if (iskonfirmasi){
-            layout_konfirmasi.setVisibility(View.VISIBLE);
-
-        }else{
-
-            layout_konfirmasi.setVisibility(View.INVISIBLE);
-        }
 
         this.btn_lihat_lokasi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +155,7 @@ public class DetailActivityKetemuan extends AppCompatActivity implements View.On
             }
         });
 
-        Image image=new Image(DetailActivityKetemuan.this,"http://maps.googleapis.com/maps/api/staticmap?zoom=17&size=1200x800&maptype=roadmap&markers=color:red%7C"+ketemuan.getLatitude()+","+ketemuan.getLongitude()+"&key=AIzaSyCEZFJ3d8Ky8pNd9fJSf33v2wR29_TOpJw",gambar_lokasi_ketemuan);
+        Image image=new Image(DetailActivityKetemuan.this,"http://maps.googleapis.com/maps/api/staticmap?zoom=17&size=1000x400&maptype=roadmap&markers=color:red%7C"+ketemuan.getLatitude()+","+ketemuan.getLongitude()+"&key=AIzaSyCEZFJ3d8Ky8pNd9fJSf33v2wR29_TOpJw",gambar_lokasi_ketemuan);
         image.showImage();
     }
 
@@ -229,18 +244,12 @@ public class DetailActivityKetemuan extends AppCompatActivity implements View.On
                     if (newState == BottomSheetBehavior.STATE_DRAGGING) {
                         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     }
-//                    header.setBackgroundColor(Color.parseColor("#ffffff"));
-//                    judul.setTextColor(Color.parseColor("#000000"));
-//                    full_gambar.setVisibility(View.GONE);
-
                 }
-//
+
             }
 
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                //Toast.makeText(getContext(), "tsedau", Toast.LENGTH_SHORT).show();
-
             }
         });
     }
@@ -253,9 +262,10 @@ public class DetailActivityKetemuan extends AppCompatActivity implements View.On
     }
 
     private void goMaps(){
-        Intent i= new Intent(DetailActivityKetemuan.this, RuteKetemuanActivity.class);
-        i.putExtra("ketemuan",ketemuan);
-        startActivity(i);
+
+        finish();
+        KetemuanControl ketemuanControl= new KetemuanControl(this);
+        ketemuanControl.lihatRuteLokasi(ketemuan);
     }
 
     private void hide_bottom(){
@@ -272,18 +282,5 @@ public class DetailActivityKetemuan extends AppCompatActivity implements View.On
         gambar.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-        if (scrollY>=oldScrollY){
-            //Toast.makeText(this, "sss", Toast.LENGTH_SHORT).show();
-            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-        }else{
-            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        }
-    }
 
-    public void redirect(){
-        Intent intent=new Intent(DetailActivityKetemuan.this,DaftarKetemuanActivity.class);
-        startActivity(intent);
-    }
 }

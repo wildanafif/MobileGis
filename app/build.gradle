@@ -36,9 +36,13 @@ dependencies {
     compile 'com.google.code.gson:gson:2.5'
     compile 'com.google.android.gms:play-services:10.2.4'
     compile 'com.google.firebase:firebase-auth:9.4.0'
+    compile 'com.google.firebase:firebase-storage:9.4.0'
     compile 'com.google.firebase:firebase-database:9.4.0'
+    compile 'com.google.firebase:firebase-messaging:9.4.0'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'org.adw.library:discrete-seekbar:1.0.1'
     compile 'com.jaredrummler:material-spinner:1.1.0'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'

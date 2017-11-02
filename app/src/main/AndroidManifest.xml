@@ -77,9 +77,42 @@
         <activity
             android:name=".ui.activity.DetailActivityKetemuan"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.RuteKetemuanActivity" />
-        <activity android:name=".ui.activity.IklanSayactivity" />
-        <activity android:name=".ui.activity.PilihLokasiKetemuanActivity"></activity>
+        <activity
+            android:name=".ui.activity.RuteKetemuanActivity"
+            android:screenOrientation="portrait"
+
+            />
+        <activity
+            android:name=".ui.activity.IklanSayactivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PilihLokasiKetemuanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.DetailActivityKetemuanDiterima"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.KofirmasiLokasiKetemuanActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".FirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".FirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".TestNotifikasActivity" />
+        <activity
+            android:name=".ui.activity.ChatActivity"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.SettingProfileActivity" />
+        <activity android:name=".ui.activity.LihatRuteLokasiTransaksi"></activity>
     </application>
 
 </manifest>

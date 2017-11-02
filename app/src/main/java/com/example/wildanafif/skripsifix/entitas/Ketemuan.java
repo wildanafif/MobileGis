@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 public class Ketemuan implements Serializable {
     private String id_ketemuan;
+
     private String email_sender;
     private String email_receiver;
     private String waktu;
@@ -17,13 +18,21 @@ public class Ketemuan implements Serializable {
     private String message;
     private Iklan iklan;
     private boolean confirmReceiver;
+
     private double latitude_sender;
     private double longitude_sender;
 
     private double latitude_receiver;
     private double longitude_receiver;
+    private boolean startSender;
+    private boolean startReceiver;
+    private String nama_pengirim;
+    private long timestamp_ketemuan;
 
-    public Ketemuan(String id_ketemuan, String email_sender, String email_receiver, String waktu, String tempat_ketemuan, double latitude, double longitude, String message, Iklan iklan, boolean confirmReceiver, double latitude_sender, double longitude_sender, double latitude_receiver, double longitude_receiver) {
+
+    public Ketemuan(String nama_pengirim,long timestamp_ketemuan,String id_ketemuan, String email_sender, String email_receiver, String waktu, String tempat_ketemuan, double latitude, double longitude, String message, Iklan iklan, boolean confirmReceiver, double latitude_sender, double longitude_sender, double latitude_receiver, double longitude_receiver, boolean startSender, boolean startReceiver) {
+        this.nama_pengirim=nama_pengirim;
+        this.timestamp_ketemuan=timestamp_ketemuan;
         this.id_ketemuan = id_ketemuan;
         this.email_sender = email_sender;
         this.email_receiver = email_receiver;
@@ -38,9 +47,15 @@ public class Ketemuan implements Serializable {
         this.longitude_sender = longitude_sender;
         this.latitude_receiver = latitude_receiver;
         this.longitude_receiver = longitude_receiver;
+
+        this.startSender=startSender;
+        this.startReceiver=startReceiver;
+
     }
 
-    public Ketemuan(String email_sender, String email_receiver, String waktu, String tempat_ketemuan, double latitude, double longitude, String message, Iklan iklan, boolean confirmReceiver) {
+    public Ketemuan(String nama_pengirim,long timestamp_ketemuan,String email_sender, String email_receiver, String waktu, String tempat_ketemuan, double latitude, double longitude, String message, Iklan iklan, boolean confirmReceiver) {
+        this.nama_pengirim=nama_pengirim;
+        this.timestamp_ketemuan=timestamp_ketemuan;
         this.email_sender = email_sender;
         this.email_receiver = email_receiver;
         this.waktu = waktu;
@@ -50,9 +65,13 @@ public class Ketemuan implements Serializable {
         this.message = message;
         this.iklan = iklan;
         this.confirmReceiver=confirmReceiver;
+
+
     }
 
-    public Ketemuan(String id_ketemuan, String email_sender, String email_receiver, String waktu, String tempat_ketemuan, double latitude, double longitude, String message, Iklan iklan, boolean confirmReceiver) {
+    public Ketemuan(String nama_pengirim,long timestamp_ketemuan,String id_ketemuan, String email_sender, String email_receiver, String waktu, String tempat_ketemuan, double latitude, double longitude, String message, Iklan iklan, boolean confirmReceiver) {
+        this.nama_pengirim=nama_pengirim;
+        this.timestamp_ketemuan=timestamp_ketemuan;
         this.id_ketemuan = id_ketemuan;
         this.email_sender = email_sender;
         this.email_receiver = email_receiver;
@@ -65,7 +84,30 @@ public class Ketemuan implements Serializable {
         this.confirmReceiver = confirmReceiver;
     }
 
+    public Ketemuan(String id_ketemuan, String email_sender, String email_receiver) {
+        this.id_ketemuan = id_ketemuan;
+        this.email_sender = email_sender;
+        this.email_receiver = email_receiver;
+    }
+
     public Ketemuan() {
+    }
+
+
+    public boolean isStartSender() {
+        return startSender;
+    }
+
+    public void setStartSender(boolean startSender) {
+        this.startSender = startSender;
+    }
+
+    public boolean isStartReceiver() {
+        return startReceiver;
+    }
+
+    public void setStartReceiver(boolean startReceiver) {
+        this.startReceiver = startReceiver;
     }
 
     public double getLatitude_sender() {
@@ -178,5 +220,21 @@ public class Ketemuan implements Serializable {
 
     public void setConfirmReceiver(boolean confirmReceiver) {
         this.confirmReceiver = confirmReceiver;
+    }
+
+    public String getNama_pengirim() {
+        return nama_pengirim;
+    }
+
+    public void setNama_pengirim(String nama_pengirim) {
+        this.nama_pengirim = nama_pengirim;
+    }
+
+    public long getTimestamp_ketemuan() {
+        return timestamp_ketemuan;
+    }
+
+    public void setTimestamp_ketemuan(long timestamp_ketemuan) {
+        this.timestamp_ketemuan = timestamp_ketemuan;
     }
 }

@@ -18,19 +18,26 @@ import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.example.wildanafif.skripsifix.R;
 import com.example.wildanafif.skripsifix.control.KetemuanControl;
 import com.example.wildanafif.skripsifix.entitas.Iklan;
 import com.example.wildanafif.skripsifix.entitas.Ketemuan;
-import com.example.wildanafif.skripsifix.entitas.firebasae.AuthFirebase;
+import com.example.wildanafif.skripsifix.entitas.Member;
+import com.example.wildanafif.skripsifix.entitas.firebase.AuthFirebase;
+import com.example.wildanafif.skripsifix.entitas.ui.Loading;
 import com.example.wildanafif.skripsifix.entitas.volley.Image;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -49,6 +56,8 @@ public class AjakKetemuanActivity extends AppCompatActivity implements View.OnCl
     private Iklan iklan;
     private Button btn_ajak_ketemuan;
     private EditText et_message;
+    private FirebaseUser me;
+    private Member member;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +75,36 @@ public class AjakKetemuanActivity extends AppCompatActivity implements View.OnCl
         this.btn_ajak_ketemuan.setOnClickListener(this);
         this.et_date.setOnClickListener(this);
         this.et_lokasi.setOnClickListener(this);
-
+        AuthFirebase authFirebase=new AuthFirebase(getApplicationContext());
+        me=authFirebase.getUserLogin();
+        getMember();
         requestPermission();
+    }
+
+    private void getMember() {
+        final Loading loading= new Loading(this);
+        loading.show();
+        DatabaseReference database_member = FirebaseDatabase.getInstance().getReference("members");
+
+        Query query =  database_member.orderByChild("email").equalTo(me.getEmail());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                member = null;
+                for (DataSnapshot userSnpashot : dataSnapshot.getChildren()){
+                    member = userSnpashot.getValue(Member.class);
+                }
+
+                loading.hide();
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void requestPermission() {
@@ -88,15 +125,14 @@ public class AjakKetemuanActivity extends AppCompatActivity implements View.OnCl
                 cariLokasi();
                 break;
             case R.id.btn_ajak_ketemuan:
-                ajakKetemuan();
+                ketemuan();
         }
     }
 
-    private void ajakKetemuan() {
-        AuthFirebase authFirebase=new AuthFirebase(getApplicationContext());
-        FirebaseUser me=authFirebase.getUserLogin();
+    private void ketemuan() {
+
 //        KetemuanControl ketemuanControl=new KetemuanControl(this);
-//        ketemuanControl.ajakKetemuan(
+//        ketemuanControl.ketemuan(
 //                me.getEmail(),
 //                this.iklan.getMail(),
 //                this.et_date.getText().toString(),
@@ -107,8 +143,11 @@ public class AjakKetemuanActivity extends AppCompatActivity implements View.OnCl
 //                this.iklan
 //
 //        );
-
+//        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//        Date date = dateFormat.parse("23/09/2007");
         Ketemuan ketemuan= new Ketemuan(
+                member.getNama(),
+                dateTime.getTimeInMillis(),
                 me.getEmail(),
                 this.iklan.getMail(),
                 this.et_date.getText().toString(),
@@ -119,10 +158,9 @@ public class AjakKetemuanActivity extends AppCompatActivity implements View.OnCl
                 this.iklan,
                 false
         );
-        finish();
-        Intent inten_pilih_lokasi= new Intent(AjakKetemuanActivity.this,PilihLokasiKetemuanActivity.class);
-        inten_pilih_lokasi.putExtra("ketemuan",ketemuan);
-        startActivity(inten_pilih_lokasi);
+
+        KetemuanControl ketemuanControl= new KetemuanControl(this);
+        ketemuanControl.ajakKetemuan(ketemuan);
     }
 
     public void redirect(){
@@ -170,6 +208,7 @@ public class AjakKetemuanActivity extends AppCompatActivity implements View.OnCl
     private void updateTextLabel(){
         //this.et_date.setText(dateTime.get(Calendar.DAY_OF_MONTH)+"-"+dateTime.get(Calendar.MONTH)+"-"+dateTime.get(Calendar.YEAR));
         this.et_date.setText(formatDateTime.format(dateTime.getTime()));
+
     }
 
     @Override

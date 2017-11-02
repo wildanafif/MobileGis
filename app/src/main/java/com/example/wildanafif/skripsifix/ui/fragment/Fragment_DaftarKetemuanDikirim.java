@@ -3,7 +3,6 @@ package com.example.wildanafif.skripsifix.ui.fragment;
 /**
  * Created by wildan afif on 5/21/2017.
  */
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,9 +13,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.wildanafif.skripsifix.R;
+import com.example.wildanafif.skripsifix.control.KetemuanControl;
 import com.example.wildanafif.skripsifix.entitas.Ketemuan;
-import com.example.wildanafif.skripsifix.entitas.firebasae.AuthFirebase;
-import com.example.wildanafif.skripsifix.ui.activity.DetailActivityKetemuan;
+import com.example.wildanafif.skripsifix.entitas.firebase.AuthFirebase;
 import com.example.wildanafif.skripsifix.ui.adapter.ListViewAdapterDaftarKetemuan;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -48,16 +47,14 @@ public class Fragment_DaftarKetemuanDikirim extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 getActivity().finish();
-                Intent intent= new Intent(getContext(), DetailActivityKetemuan.class);
-                intent.putExtra("ketemuan",daftarKetemuan.get(position));
-                intent.putExtra("konfirmasi",false);
-                startActivity(intent);
+                KetemuanControl ketemuanControl=new KetemuanControl(getContext());
+                ketemuanControl.detailKetemuan(daftarKetemuan.get(position));
             }
         });
         daftarKetemuan = new ArrayList<>();
 
 
-        databaseReferenceListUsers.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReferenceListUsers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 daftarKetemuan.clear();
@@ -67,10 +64,11 @@ public class Fragment_DaftarKetemuanDikirim extends Fragment {
                         daftarKetemuan.add(getUser);
                     }
 
-                    adapter = new ListViewAdapterDaftarKetemuan(getContext(), daftarKetemuan);
-                    lvProduct.setAdapter(adapter);
+
 
                 }
+                adapter = new ListViewAdapterDaftarKetemuan("sender",getContext(), daftarKetemuan);
+                lvProduct.setAdapter(adapter);
             }
 
             @Override

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical"
+android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+>
+
+<LinearLayout
+    android:id="@+id/layout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp"
+    android:visibility="visible"
+    android:gravity="right"
+    android:paddingLeft="40dp"
+    >
+
+
+
+    <TextView
+       android:layout_gravity="right"
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+
+
+        android:background="@drawable/rounded_corner"
+        android:padding="16dp"
+        android:text="Android charting ."
+        android:textColor="#000" />
+
+
+
+
+</LinearLayout>
+
+<LinearLayout
+    android:id="@+id/layout2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/layout1"
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal"
+    android:visibility="visible"
+    android:gravity="left"
+    android:paddingRight="40dp"
+    >
+
+
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+
+        android:background="@drawable/rounded_corner1"
+        android:padding="16dp"
+
+        android:text="Android Android Android Android Android Android c hfgv  sdfsd hh"
+        android:textColor="#000" />
+
+
+</LinearLayout>
+
+</LinearLayout>

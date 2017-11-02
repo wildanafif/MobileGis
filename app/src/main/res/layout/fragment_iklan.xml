@@ -19,18 +19,20 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical"
         android:visibility="invisible"
+
         >
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Cari Iklan"
-
+            android:hint="Cari iklan sesuai lokasi yang anda input"
+            android:textSize="15dp"
             android:background="@drawable/border_shadow"
             android:padding="10dp"
             android:id="@+id/cari_iklan"
             android:singleLine="true"
             android:imeOptions="actionDone"
+            android:focusable="false"
 
             />
         <ListView
@@ -62,6 +64,7 @@
 
     <include layout="@layout/bottom_shet_detail_iklan"/>
     <include layout="@layout/filter_iklan"/>
+    <include layout="@layout/bottom_shet_list_iklan"/>
 
 
 
